@@ -1,0 +1,52 @@
+:root{
+  --max-width: 1000px;
+  --accent: #0a66c2;
+  --muted: #666;
+  --bg: #f7f7f7;
+  --card-bg: #fff;
+  --gap: 1rem;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);color:#111}
+.contenedor-principal{max-width:var(--max-width);margin:0 auto;padding:1rem}
+.site-header{display:flex;flex-direction:column;align-items:flex-start;gap:.5rem;padding:.5rem 0}
+.site-header h1{font-size:1.25rem;margin:0}
+.main-nav ul{display:flex;flex-wrap:wrap;gap:.5rem;list-style:none;padding:0;margin:0}
+.main-nav a{color:var(--accent);text-decoration:none;padding:.25rem .5rem;border-radius:4px}
+.main-nav a:focus, .main-nav a:hover{background:rgba(10,102,194,0.08)}
+
+.card{background:var(--card-bg);padding:1rem;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);margin:1rem 0}
+.perfil-grid{display:flex;gap:1rem;align-items:center}
+.profile-photo{width:200px;height:200px;border-radius:50%;object-fit:cover;flex:0 0 auto}
+
+/* Projects table styled accessible */
+.projects-table{width:100%;border-collapse:collapse}
+.projects-header, .projects-row{display:grid;grid-template-columns:1fr 2fr 1fr;padding:.5rem;border-bottom:1px solid #eee}
+.projects-header{font-weight:600;background:linear-gradient(90deg, #fff, #fafafa);}
+
+/* Utilities */
+.center{text-align:center}
+.skills-list{columns:2;column-gap:1rem}
+.contact-list{list-style:none;padding:0;margin:0}
+.contact-list li{margin:.3rem 0}
+
+/* Responsive iframe container */
+.iframe-container{position:relative;width:100%;padding-top:56.25%;overflow:hidden;border-radius:8px}
+.iframe-container iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+
+/* Skip link */
+.skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}
+.skip-link:focus{position:static;width:auto;height:auto;padding:.5rem;background:#000;color:#fff;z-index:9999;border-radius:4px}
+
+/* Footer */
+.site-footer{padding:.75rem 0;text-align:center;color:var(--muted);font-size:.9rem}
+
+/* Small screens */
+@media (max-width:800px){
+  .perfil-grid{flex-direction:column;align-items:center;text-align:center}
+  .profile-photo{width:150px;height:150px}
+  .projects-header, .projects-row{grid-template-columns:1fr;gap:.25rem}
+  .skills-list{columns:1}
+}
