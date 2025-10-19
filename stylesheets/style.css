@@ -1,22 +1,120 @@
 :root{
+  /* Paleta y variables */
   --max-width: 1000px;
-  --accent: #0a66c2;
+  --primary: #0a66c2;        /* azul principal */
+  --primary-600: #0956a8;
+  --accent: #ff7a59;         /* acento cálido */
   --muted: #666;
   --bg: #f7f7f7;
-  --card-bg: #fff;
+  --card-bg: #ffffff;
+  --nav-bg: linear-gradient(90deg, rgba(10,102,194,0.95), rgba(9,86,168,0.95));
+  --nav-text: #ffffff;
+  --nav-hover: rgba(255,255,255,0.12);
+  --radius: 10px;
   --gap: 1rem;
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
 *{box-sizing:border-box}
 html,body{height:100%;margin:0;background:var(--bg);color:#111}
 .contenedor-principal{max-width:var(--max-width);margin:0 auto;padding:1rem}
-.site-header{display:flex;flex-direction:column;align-items:flex-start;gap:.5rem;padding:.5rem 0}
-.site-header h1{font-size:1.25rem;margin:0}
-.main-nav ul{display:flex;flex-wrap:wrap;gap:.5rem;list-style:none;padding:0;margin:0}
-.main-nav a{color:var(--accent);text-decoration:none;padding:.25rem .5rem;border-radius:4px}
-.main-nav a:focus, .main-nav a:hover{background:rgba(10,102,194,0.08)}
 
+/* HEADER / NAV */
+.site-header{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:space-between;
+  gap:.75rem;
+  padding:.75rem 1rem;
+  border-radius: var(--radius);
+  background: var(--nav-bg);
+  color: var(--nav-text);
+  box-shadow: 0 6px 20px rgba(8,40,80,0.12);
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  margin-bottom: 1rem;
+}
+
+/* Título */
+.site-header h1{
+  font-size:1rem;
+  margin:0;
+  color: #fff;
+  font-weight:600;
+  letter-spacing: .2px;
+}
+
+/* Navegación principal */
+.main-nav{
+  display:block;
+}
+.main-nav ul{
+  display:flex;
+  gap:.5rem;
+  align-items:center;
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
+/* Estilo de los enlaces de la barra */
+.main-nav a{
+  display:inline-block;
+  color:var(--nav-text);
+  text-decoration:none;
+  padding:.45rem .8rem;
+  border-radius:999px;
+  background: transparent;
+  transition: background .18s ease, transform .12s ease, box-shadow .12s ease;
+  font-weight:600;
+  font-size:.95rem;
+  border: 1px solid transparent;
+}
+
+/* Hover / focus */
+.main-nav a:hover,
+.main-nav a:focus{
+  background: var(--nav-hover);
+  transform: translateY(-1px);
+  outline: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Active / enlace actual — resaltar */
+.main-nav a.active,
+.main-nav a[aria-current="page"]{
+  background: #fff;
+  color: var(--primary-600);
+  box-shadow: 0 4px 12px rgba(9,86,168,0.12);
+  transform:none;
+}
+
+/* Pequeño indicador debajo del link al hacer hover (decorativo) */
+.main-nav a::after{
+  content: "";
+  display: block;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg,var(--accent),var(--primary));
+  border-radius: 2px;
+  margin-top: 6px;
+  transition: width .18s ease;
+}
+.main-nav a:hover::after,
+.main-nav a:focus::after{
+  width: 60%;
+}
+
+/* Botón visual para enlaces externos si deseas */
+.main-nav a[target="_blank"]{
+  position:relative;
+}
+
+/* CARDs y secciones */
 .card{background:var(--card-bg);padding:1rem;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);margin:1rem 0}
 .perfil-grid{display:flex;gap:1rem;align-items:center}
 .profile-photo{width:200px;height:200px;border-radius:50%;object-fit:cover;flex:0 0 auto}
@@ -43,10 +141,43 @@ html,body{height:100%;margin:0;background:var(--bg);color:#111}
 /* Footer */
 .site-footer{padding:.75rem 0;text-align:center;color:var(--muted);font-size:.9rem}
 
-/* Small screens */
-@media (max-width:800px){
+/* Small screens: nav become stacked and more usable */
+@media (max-width:900px){
+  .site-header{
+    flex-direction:column;
+    align-items:stretch;
+    gap:.5rem;
+    padding:.6rem;
+  }
+  .site-header h1{order:0;text-align:left}
+  .main-nav ul{
+    flex-direction:row;
+    overflow:auto;
+    padding: .25rem 0;
+    -webkit-overflow-scrolling: touch;
+  }
+  .main-nav a{
+    white-space:nowrap;
+    padding:.45rem .65rem;
+    font-size:.92rem;
+  }
+}
+
+/* Very small screens: stack nav vertically for easy tapping */
+@media (max-width:520px){
+  .main-nav ul{
+    flex-direction:column;
+    gap:.35rem;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    padding:.6rem;
+    border-radius:8px;
+  }
+  .main-nav a{display:block;text-align:center}
   .perfil-grid{flex-direction:column;align-items:center;text-align:center}
   .profile-photo{width:150px;height:150px}
   .projects-header, .projects-row{grid-template-columns:1fr;gap:.25rem}
   .skills-list{columns:1}
 }
+
+/* Focus-visible accessibility */
+a:focus-visible{outline:3px solid rgba(10,102,194,0.2);outline-offset:3px;border-radius:6px}
